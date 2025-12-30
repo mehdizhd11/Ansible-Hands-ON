@@ -22,3 +22,28 @@ Module is idempotent if it runs at first , the result have no different from whe
 ## Structure of Ansible Project
 
 1. Inventory:
+    * hosts.ym
+    * group_vars/
+    *   host_vars/
+
+* extra_vars > host_vars > group_vars > inventory vars > role defaults
+
+2. role:
+    * tasks: tasks to run for playbook
+    * handlers
+    * defaults: sets low-priority, user-overridable variables
+    * vars: holds high-priority internal variables
+    * meta: includes role metadata and dependencies.
+    * templates
+    * files
+
+## What are handlers ?
+In Ansible, a handler is a special task triggered only when notified by another task. It’s typically used for actions like restarting services after configuration changes. Handlers solve the problem of unnecessary repetition by ensuring tasks run only when needed.
+
+* Only run if notified
+* Run once (in one play) even if notified more
+* Run at the end of play
+
+* playbook -> some plays -> some tasks
+
+
