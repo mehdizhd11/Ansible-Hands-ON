@@ -182,6 +182,11 @@ example:
 
 The term Ansible registry is sometimes informally used to describe mechanisms for persistently storing and sharing variables across tasks or plays in a playbook.
 
+1. Registered variables: Using the register keyword to capture task output and reuse it later in the playbook.
+2. Set_fact module: To define variables dynamically during runtime and make them available to subsequent tasks.
+3. Host and group variables: Stored in inventory files or variable directories to persist values across plays.
+4. Fact caching: Enables variables (facts) to be stored between playbook runs using backends like Redis or JSON.
+
 ## Ansible Galaxy
 
 Ansible Galaxy is a central repository and community hub for sharing, finding, and reusing Ansible content. Think of it like Docker Hub for container images.
