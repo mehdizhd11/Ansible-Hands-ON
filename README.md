@@ -111,6 +111,30 @@ Ansible Vault is a feature that allows users to encrypt values and data structur
 example:
 `ansible-playbook -i inventory/inv.ini site.yml --ask-vault-pass`
 
+## Callback plugins
+Callback plugins in Ansible are used to customize the output and behavior of playbook execution. They allow you to hook into different stages of a playbook run and perform actions such as:
+1. Logging results to external systems (e.g., log files, databases)
+2. Sending notifications (e.g., Slack, email, webhook alerts)
+3. Formatting output (e.g., human-readable, JSON, minimal)
+4. Triggering post-playbook actions like audits or reports
+
+## Types of Inventory
+1. Static Inventory \
+Defined manually in an INI or YAML file.
+Hosts and groups are explicitly listed.
+Simple and ideal for small or stable environments.
+
+2. Dynamic Inventory \
+Generated automatically using scripts or plugins.
+Pulls host data from external sources like AWS, Azure, GCP, or CMDBs.
+Ideal for cloud-native or large-scale environments with frequent changes.
+
+## Ad-hoc commands
+In Ansible, an ad-hoc command is a fast, one liner task that you perform directly from the command line. This command helps for quick fixes or checks on remote systems.
+`ansible group1  -m shell -a 'df -h'`
+
+
+
 
 
 
