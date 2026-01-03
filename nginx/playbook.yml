@@ -1,0 +1,16 @@
+- name: Install Nginx
+  hosts: web_servers
+  become: true  # To execute tasks with sudo privileges
+  tasks:
+  - name: Update package cache
+    apt:
+      update_cache: yes  # For Ubuntu/Debian systems
+  - name: Install Nginx
+    apt:
+      name: nginx
+      state: present
+  - name: Start Nginx service
+    service:
+      name: nginx
+      state: started
+      enabled: yes  # Ensures Nginx starts on boot
