@@ -182,6 +182,26 @@ example:
 
 The term Ansible registry is sometimes informally used to describe mechanisms for persistently storing and sharing variables across tasks or plays in a playbook.
 
+## Ansible Galaxy
+
+Ansible Galaxy is a central repository and community hub for sharing, finding, and reusing Ansible content. Think of it like Docker Hub for container images.
+
+```
+# Search for roles
+ansible-galaxy search "nginx"
+
+# Install a role
+ansible-galaxy role install geerlingguy.nginx
+
+# Install a collection
+ansible-galaxy collection install community.general
+
+# List installed roles
+ansible-galaxy role list
+
+# Initialize a new role structure
+ansible-galaxy role init my_new_role
+```
 
 
 
