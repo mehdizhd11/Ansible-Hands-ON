@@ -1,0 +1,29 @@
+- name: Install packages based on OS type
+  hosts: your_target_hosts
+  become: true
+  tasks:
+    - name: Install packages for Debian-based systems (e.g., Ubuntu)
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - package1_for_debian
+        - package2_for_debian
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+    - name: Install packages for Red Hat-based systems (e.g., CentOS)
+      yum:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - package1_for_redhat
+        - package2_for_redhat
+      when: ansible_distribution == 'RedHat' or ansible_distribution == 'CentOS'
+
+    - name: Install common packages for all systems
+      package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - common_package1
+        - common_package2

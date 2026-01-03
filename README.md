@@ -1,16 +1,20 @@
 # Ansible Hands ON
+
 Ansible hands-on practice and documentation
 
 ##### Ref: https://www.geeksforgeeks.org/devops/ansible-interview-questions/
 
 ## Why Ansible ?
+
 Ansible is an open-source automation platform used to configure systems, deploy applications, and orchestrate IT workflows across servers, containers, network gear, and cloud services.
 
 ### Key Components
+
 1. Control Node: where playbooks are executed
 2. Managed Nodes: target systems
 
 ##
+
 * It communicates using standard protocols SSH for Linux/Unix and WinRM for Windows without requiring any agent installation.
 
 * Ansible doesn’t require software agents on managed nodes; it uses SSH or WinRM for communication. In contrast, Puppet and Chef rely on agents that poll a central server for updates a pull-based model.
@@ -26,7 +30,7 @@ Module is idempotent if it runs at first , the result have no different from whe
 1. Inventory:
     * hosts.ym
     * group_vars/
-    *   host_vars/
+    * host_vars/
 
 * extra_vars > host_vars > group_vars > inventory vars > role defaults
 
@@ -42,6 +46,7 @@ Module is idempotent if it runs at first , the result have no different from whe
 3. playbook
 
 ## What are handlers ?
+
 In Ansible, a handler is a special task triggered only when notified by another task. It’s typically used for actions like restarting services after configuration changes. Handlers solve the problem of unnecessary repetition by ensuring tasks run only when needed.
 
 * Only run if notified
@@ -51,7 +56,9 @@ In Ansible, a handler is a special task triggered only when notified by another 
 * playbook -> some plays -> some tasks
 
 ## Example of playbook
+
 * Install a Package:
+
 ```
 - name: Install Package Playbook
   hosts: your_server_group
@@ -66,6 +73,7 @@ In Ansible, a handler is a special task triggered only when notified by another 
 `ansible-playbook -i /path/to/inventory/file myplaybook.yml`
 
 * Check The Status Of a Service
+
 ```
 - name: Check Service Status
   hosts: your_server_group
@@ -82,11 +90,13 @@ In Ansible, a handler is a special task triggered only when notified by another 
 ```
 
 ## What is jump host ?
+
 A jump host or proxy host an intermediary server that is used to access other servers in a network that are not directly reachable from the ansible control machine. We have 2 solution:
 
 1. Edit SSH Config
 
 2. Use jump Host in playbook:
+
 ```
 - name: Your Playbook
   hosts: your_target_hosts
@@ -95,7 +105,9 @@ A jump host or proxy host an intermediary server that is used to access other se
 ```
 
 ## What is Ansible Vault ?
+
 Ansible Vault is a feature that allows users to encrypt values and data structures within Ansible projects.
+
 * Creating New Encrypted Files
    `ansible-vault create vault.yml`
   
@@ -112,13 +124,16 @@ example:
 `ansible-playbook -i inventory/inv.ini site.yml --ask-vault-pass`
 
 ## Callback plugins
+
 Callback plugins in Ansible are used to customize the output and behavior of playbook execution. They allow you to hook into different stages of a playbook run and perform actions such as:
+
 1. Logging results to external systems (e.g., log files, databases)
 2. Sending notifications (e.g., Slack, email, webhook alerts)
 3. Formatting output (e.g., human-readable, JSON, minimal)
 4. Triggering post-playbook actions like audits or reports
 
 ## Types of Inventory
+
 1. Static Inventory \
 Defined manually in an INI or YAML file.
 Hosts and groups are explicitly listed.
@@ -132,6 +147,43 @@ Ideal for cloud-native or large-scale environments with frequent changes.
 ## Ad-hoc commands
 In Ansible, an ad-hoc command is a fast, one liner task that you perform directly from the command line. This command helps for quick fixes or checks on remote systems.
 `ansible group1  -m shell -a 'df -h'`
+
+## Ansible Tower
+
+Ansible Tower is a web-based interface developed by Red Hat that enhances the usability and scalability of Ansible automation. It provides a centralized platform for managing playbooks, inventories, credentials, and workflows through a visual dashboard. Key features include role-based access control, which ensures secure delegation of tasks among users; job scheduling, allowing playbooks to run automatically at specified times; and real-time monitoring and logging, which helps track execution and troubleshoot issues. Tower also supports workflow orchestration, enabling complex automation sequences, and integrates with external systems like Git, LDAP, and cloud providers for seamless enterprise use.
+
+## To improve the performance of a slow playbook
+
+* Enable SSH Pipelining – Reduces overhead by reusing SSH connections, speeding up task execution.
+* Increase Forks – Boosts parallelism by allowing Ansible to manage more hosts simultaneously (default is 5).
+* Configure Fact Caching – Stores host facts to avoid re-gathering them on every run, saving time across large inventories.
+
+## To debug a failing Ansible task
+
+* Increase verbosity using -vvv to get detailed output.
+* Isolate the issue with --limit and --start-at-task.
+* Use debug and register to inspect variables and task output.
+* Run in check mode with --check --diff to preview changes.
+
+## Delegate tasks In Ansible
+
+Delegating tasks in Ansible is a powerful feature that allows you to execute specific tasks on a host different from the one currently targeted by the play. This is done using the delegate_to keyword within a task definition. It’s especially useful in scenarios where centralized operations are required-such as updating a load balancer, managing a shared database, or collecting logs from multiple nodes.
+
+example:
+```
+- name: Update DNS records from webserver play
+  hosts: webservers
+  tasks:
+    - name: Update DNS on central server
+      delegate_to: dns-master
+      run_once: true
+      ansible.builtin.command: /usr/bin/update-dns
+```
+
+## What Is Ansible Registry?
+
+The term Ansible registry is sometimes informally used to describe mechanisms for persistently storing and sharing variables across tasks or plays in a playbook.
+
 
 
 
