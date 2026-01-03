@@ -26,7 +26,7 @@ Module is idempotent if it runs at first , the result have no different from whe
 ## Structure of Ansible Project
 
 1. Inventory:
-    * hosts.ym
+    * hosts.yml
     * group_vars/
     * host_vars/
 
