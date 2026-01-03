@@ -203,6 +203,23 @@ ansible-galaxy role list
 ansible-galaxy role init my_new_role
 ```
 
+## Setting Dynamic Variables
+
+We use `set_fact` , Sets variables dynamically during playbook execution.
+
+example::
+```
+- hosts: all
+  tasks:
+    - name: Set a simple fact
+      set_fact:
+        greeting: "Hello, World!"
+    
+    - name: Use the fact
+      debug:
+        msg: "{{ greeting }}"
+```
+
 
 
 
